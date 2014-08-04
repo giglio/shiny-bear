@@ -13,7 +13,8 @@ from FlippingCoins import flip_some_coins_lots_of_times
 
 
 def example_test_a_mean(a_list_of_values, target=0.5, significance_level=0.95):
-    """ The math behind 'example_test_coin_fairness' """
+    """ The math behind testing a single mean """
+
     sample_size = len(a_list_of_values)
     sample_standard_deviation = std(a_list_of_values)
     sample_mean = mean(a_list_of_values)
@@ -31,8 +32,10 @@ def example_test_a_mean(a_list_of_values, target=0.5, significance_level=0.95):
     else:
         return 'Mean is not equal to target'
 
+
 def example_compare_two_means(list_of_values_1, list_of_values_2, significance_level=0.95):
-    """ The math behind 'example_compare_two_coins' """
+    """ The math behind comparing two means """
+
     sample_size_1 = len(list_of_values_1)
     sample_standard_deviation_1 = std(list_of_values_1)
     sample_mean_1 = mean(list_of_values_1)
@@ -56,10 +59,11 @@ def example_compare_two_means(list_of_values_1, list_of_values_2, significance_l
     else:
         return 'Means are not equal'
 
-def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95):
-    """ The math """
-    sigma = sqrt(p*(1-p)/n)
 
+def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95):
+    """ The math behind testing a single proportion """
+
+    sigma = sqrt(p*(1-p)/n)
     z_score = (p-target)/sigma
     prob = stats.zprob(z_score)
 
@@ -71,8 +75,9 @@ def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95)
     else:
         return 'Proportion is not equal to target'
 
+
 def example_compare_two_proportions(p1=0.1, n1=100, p2=0.1, n2=100, significance_level=0.95):
-    """  """
+    """ The math behind comparing two proportions """
     p = ((p1*n1)+(p2*n2))/(n1+n2)
     standard_error = sqrt(p*(1.-p)*((1./n1)+(1./n2)))
 
@@ -87,8 +92,10 @@ def example_compare_two_proportions(p1=0.1, n1=100, p2=0.1, n2=100, significance
     else:
         return 'Proportions are not equal'
 
+
 def main():
     """ TestingHypothesisMath.py """
+
     results = flip_some_coins_lots_of_times(number_of_times=100000,
                                         number_of_flips=1000,
                                         fairness=0.5)

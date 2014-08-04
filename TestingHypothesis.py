@@ -27,6 +27,7 @@ def example_test_coin_fairness(number_of_flips, fairness=0.5, significance_level
     else:
         return 'The coin is unfair'
 
+
 def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, significance_level=0.95):
     """ Two-sided test for the null hypothesis that 2 coins are equal """
 
@@ -47,6 +48,7 @@ def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, s
     else:
         return 'Coins are not equal'
 
+
 def example_test_single_proportion(number_of_flips, fairness=0.5, significance_level=0.95):
     """ Two-sided test for the null hypothesis that a proportion is equal to 0.5 """
 
@@ -66,7 +68,9 @@ def example_test_single_proportion(number_of_flips, fairness=0.5, significance_l
     else:
         return 'The proportion is not equal to target'
 
-def example_compare_two_proportions(number_of_flips, fairness_1=0.5, fairness_2=0.5, significance_level=0.95):
+
+def example_compare_two_proportions(number_of_flips, fairness_1=0.5, fairness_2=0.5,
+                                    significance_level=0.95):
     """ Two-sided test for the null hypothesis that 2 proportions are equal """
 
     results_1, results_2 = [], []
@@ -74,8 +78,7 @@ def example_compare_two_proportions(number_of_flips, fairness_1=0.5, fairness_2=
         results_1.append(flip_a_coin(fairness_1))
         results_2.append(flip_a_coin(fairness_2))
 
-    # If equal_var=True: assumes equal population variances.
-    # If equal_var=False, perform Welch t-test
+    # Two-sided test of whether 2 samples are drawn from the same distribution and parameters or not.
     ks_statistic, prob = stats.ks_2samp(results_1, results_2)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
@@ -85,6 +88,7 @@ def example_compare_two_proportions(number_of_flips, fairness_1=0.5, fairness_2=
         return 'Coins are equal'
     else:
         return 'Coins are not equal'
+
 
 def main():
     """ TestingHypothesis.py """
