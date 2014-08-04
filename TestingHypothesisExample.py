@@ -13,6 +13,7 @@ from FlippingCoins import flip_a_coin
 
 def example_test_coin_fairness(number_of_flips, fairness=0.5, significance_level=0.95):
     results = [flip_a_coin(fairness) for flip in range(number_of_flips)]
+
     t_statistic, prob = stats.ttest_1samp(results, 0.5)
     alpha = 1 - significance_level
     if prob > alpha:
@@ -25,6 +26,7 @@ def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, s
     for _ in range(number_of_flips):
         results_1.append(flip_a_coin(fairness_1))
         results_2.append(flip_a_coin(fairness_2))
+
     t_statistic, prob = stats.ttest_ind(results_1, results_2, equal_var=True)
     alpha = 1 - significance_level
     if prob > alpha:
@@ -32,8 +34,8 @@ def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, s
     else:
         return 'Coins are not equal'
 
-
-if __name__ == '__main__':
+def main():
+    """ TestingHypothesisExample.py """
 
     print 'Testing the fairness of a fair coin:', example_test_coin_fairness(
                                                     number_of_flips=1000,
@@ -49,3 +51,9 @@ if __name__ == '__main__':
                                                     number_of_flips=1000,
                                                     fairness_1=0.5,
                                                     fairness_2=0.3)
+
+
+if __name__ == '__main__':
+
+    main()
+

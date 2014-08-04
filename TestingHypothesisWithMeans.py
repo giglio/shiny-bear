@@ -50,9 +50,8 @@ def example_compare_two_means(list_of_values_1, list_of_values_2, significance_l
     else:
         return 'Means are not equal'
 
-
-if __name__ == '__main__':
-
+def main():
+    """ TestingHypothesisWithMeans.py """
     results = flip_some_coins_lots_of_times(number_of_times=100000,
                                         number_of_flips=1000,
                                         fairness=0.5)
@@ -77,3 +76,9 @@ if __name__ == '__main__':
     print 'Comparing two unequal means:', example_compare_two_means(
                                         results_1,
                                         results_2)
+
+
+if __name__ == '__main__':
+
+    main()
+

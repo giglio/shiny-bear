@@ -12,7 +12,7 @@ from matplotlib.pyplot import plot, legend, show
 
 
 def simulate_bandit(number_of_requests=1000):
-
+    """ """
     alternatives = {
         'A': {
             'success': 1,
@@ -57,8 +57,12 @@ def simulate_bandit(number_of_requests=1000):
 
     plot(proportions_in_time); legend(alternatives.keys()); show()
 
+def main():
+    """ ThompsonSampling.py """
+    simulate_bandit(number_of_requests=10000)
+
 
 if __name__ == '__main__':
 
-    simulate_bandit(number_of_requests=10000)
+    main()    
 

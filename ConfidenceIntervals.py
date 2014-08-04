@@ -42,13 +42,17 @@ def get_confidence_intervals_using_the_quantiles(a_list_of_values, significance_
     upper_bound = stats.scoreatpercentile(a_list_of_values, 100*(1-alpha/2))
     return lower_bound, upper_bound
 
-
-if __name__ == '__main__':
-
+def main():
+    """ ConfidenceIntervals.py """
     results = flip_some_coins_lots_of_times(number_of_times=100000,
-                                        number_of_flips=1000,
-                                        fairness=0.5)
+                                            number_of_flips=1000,
+                                            fairness=0.5)
     print 'Three-sigma:', get_confidence_intervals_using_the_three_sigma_rule(results)
     print 'Normal dist.:', get_confidence_intervals_using_the_normal_distribution(results)
     print 'Quantiles:', get_confidence_intervals_using_the_quantiles(results)
+
+
+if __name__ == '__main__':
+
+    main()
 

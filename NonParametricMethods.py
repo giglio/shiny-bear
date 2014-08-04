@@ -57,9 +57,10 @@ def non_parametric_test_for_difference_of_means(list_of_values_1, list_of_values
     else:
         return 'The means are not equal'
 
+def main():
+    """ NonParametricMethods.py """
 
-if __name__ == '__main__':
-
+    print '---------- Normal data ---------------'
     normal_data = flip_some_coins_lots_of_times_and_plot(10000, number_of_flips=1000, fairness=0.5)
     normal_mean = mean(normal_data)
     normal_lower_bound, normal_upper_bound = get_confidence_intervals_using_the_normal_distribution(normal_data)
@@ -70,6 +71,7 @@ if __name__ == '__main__':
     print 'Bootstrapping confidence intervals for normal data:', normal_lower_bound, normal_upper_bound
     print
 
+    print '---------- Powerlaw data -------------'
     powerlaw_data = create_random_non_normal_data(sample_size=10000, plot=True)
     print 'powerlaw: len', len(powerlaw_data), 'mean', mean(powerlaw_data)
     powerlaw_mean = mean(powerlaw_data)
@@ -78,19 +80,28 @@ if __name__ == '__main__':
     print 'Confidence intervals for powerlaw data:', powerlaw_lower_bound, powerlaw_upper_bound
     powerlaw_lower_bound, powerlaw_upper_bound = bootstrap_confidence_intervals(powerlaw_data)
     print 'Bootstrapping confidence intervals for powerlaw data:', powerlaw_lower_bound, powerlaw_upper_bound
+    print
 
+    print '---------- Two equal normal means -----------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     print 'Normality based test to compare two equal normal means:', example_compare_two_means(data_2, data_1)
     print 'Ranksum test to compare two equal normal means:', non_parametric_test_for_difference_of_means(data_2, data_1)
     print
+    print '---------- Two unequal normal means ---------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.45)
     print 'Normality based test to compare two unequal normal means:', example_compare_two_means(data_2, data_1)
     print 'Ranksum test to compare two unequal normal means:', non_parametric_test_for_difference_of_means(data_2, data_1)
     print
+    print '---------- Two equal non-normal means -------------'
     data_1 = create_random_non_normal_data(sample_size=10000)
     data_2 = create_random_non_normal_data(sample_size=10000)
     print 'Normality based test to compare two equal non-normal means:', example_compare_two_means(data_2, data_1)
     print 'Ranksum test to compare two equal non-normal means:', non_parametric_test_for_difference_of_means(data_2, data_1)
+
+
+if __name__ == '__main__':
+
+    main()
 
