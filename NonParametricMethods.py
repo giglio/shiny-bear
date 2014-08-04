@@ -65,8 +65,8 @@ def non_parametric_test_for_difference_of_means(list_of_values_1, list_of_values
                                                     significance_level=0.95):
     """ Mann–Whitney U (non parametric) test for the difference of proportions """
 
-    #  Mann–Whitney U test (also called the Mann–Whitney–Wilcoxon (MWW),
-    # Wilcoxon rank-sum test, or Wilcoxon–Mann–Whitney test
+    # Mann-Whitney U test (also called the Mann-Whitney-Wilcoxon (MWW),
+    # Wilcoxon rank-sum test, or Wilcoxon-Mann-Whitney test
     z_statistic, prob = stats.mannwhitneyu(list_of_values_1, list_of_values_2)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
