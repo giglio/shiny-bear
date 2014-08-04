@@ -85,9 +85,9 @@ def example_compare_two_proportions(number_of_flips, fairness_1=0.5, fairness_2=
     # then we cannot reject the null hypothesis of identical averages
     alpha = 1 - significance_level
     if prob > alpha:
-        return 'Coins are equal'
+        return 'Proportions are equal'
     else:
-        return 'Coins are not equal'
+        return 'Proportions are not equal'
 
 
 def main():
