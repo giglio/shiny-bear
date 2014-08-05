@@ -90,7 +90,7 @@ def main():
     """ NonParametricMethods.py """
 
     print '---------- Normal data ---------------'
-    normal_data = flip_some_coins_lots_of_times(100, number_of_flips=1000, fairness=0.5, plot=True)
+    normal_data = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5, plot=True)
     normal_lower_bound, normal_upper_bound = get_confidence_intervals_using_the_normal_distribution(
                                                                                         normal_data)
     print 'normal: len', len(normal_data), 'mean', mean(normal_data)
@@ -101,7 +101,7 @@ def main():
     print
 
     print '---------- Powerlaw data -------------'
-    powerlaw_data = create_random_non_normal_data(sample_size=100, plot=True)
+    powerlaw_data = create_random_non_normal_data(sample_size=10000, plot=True)
     print 'powerlaw: len', len(powerlaw_data), 'mean', mean(powerlaw_data)
     powerlaw_lower_bound, powerlaw_upper_bound = get_confidence_intervals_using_the_normal_distribution(
                                                                                         powerlaw_data)
@@ -114,26 +114,27 @@ def main():
     print '---------- Two equal normal means -----------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
-    print 'Normality based test to compare two equal normal means:', compare_two_means(
-                                                                                    data_2, data_1)
-    print 'Ranksum test to compare two equal normal means:', non_parametric_test_for_difference_of_means(
-                                                                                    data_2, data_1)
+    print 'Normality based test:', compare_two_means(data_2, data_1)
+    print 'Ranksum test        :', non_parametric_test_for_difference_of_means(data_2, data_1)
     print
     print '---------- Two unequal normal means ---------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.45)
-    print 'Normality based test to compare two unequal normal means:', compare_two_means(
-                                                                                    data_2, data_1)
-    print 'Ranksum test to compare two unequal normal means:', non_parametric_test_for_difference_of_means(
-                                                                                    data_2, data_1)
+    print 'Normality based test:', compare_two_means(data_2, data_1)
+    print 'Ranksum test        :', non_parametric_test_for_difference_of_means(data_2, data_1)
     print
     print '---------- Two equal non-normal means -------------'
-    data_1 = create_random_non_normal_data(sample_size=1000)
-    data_2 = create_random_non_normal_data(sample_size=1000)
-    print 'Normality based test to compare two equal non-normal means:', compare_two_means(
-                                                                                    data_2, data_1)
-    print 'Ranksum test to compare two equal non-normal means:', non_parametric_test_for_difference_of_means(
-                                                                                    data_2, data_1)
+    data_1 = create_random_non_normal_data(sample_size=100000)
+    data_2 = create_random_non_normal_data(sample_size=100000)
+    print 'Normality based test:', compare_two_means(data_2, data_1)
+    print 'Ranksum test        :', non_parametric_test_for_difference_of_means(data_2, data_1)
+
+    print
+    print '---------- Two unequal non-normal means -------------'
+    data_1 = create_random_non_normal_data(sample_size=100000, a=11.3)
+    data_2 = create_random_non_normal_data(sample_size=100000, a=12)
+    print 'Normality based test:', compare_two_means(data_2, data_1)
+    print 'Ranksum test        :', non_parametric_test_for_difference_of_means(data_2, data_1)
 
 
 if __name__ == '__main__':
