@@ -79,9 +79,14 @@ def example_compare_two_means(list_of_values_1, list_of_values_2, significance_l
 def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95):
     """ The math behind testing a single proportion """
 
+    # sample standard deviation
     sigma = sqrt(p*(1-p)/n)
-    z_score = (p-target)/sigma
-    prob = stats.zprob(z_score)
+
+    # z-score
+    z = (p-target)/sigma
+
+    # check in statistical table
+    prob = stats.zprob(z)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
     # then we cannot reject the null hypothesis of identical proportions
@@ -94,11 +99,16 @@ def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95)
 
 def example_compare_two_proportions(p1=0.1, n1=100, p2=0.1, n2=100, significance_level=0.95):
     """ The math behind comparing two proportions """
-    p = ((p1*n1)+(p2*n2))/(n1+n2)
-    standard_error = sqrt(p*(1.-p)*((1./n1)+(1./n2)))
 
-    z_score = (p1-p2)/standard_error
-    prob = stats.zprob(z_score)
+    # overall sample proportion
+    p = ((p1*n1)+(p2*n2))/(n1+n2)
+    # standard error
+    se = sqrt(p*(1.-p)*((1./n1)+(1./n2)))
+    # z-score
+    z = (p1-p2)/se
+
+    # check in statistical table
+    prob = stats.zprob(z)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
     # then we cannot reject the null hypothesis of identical proportions
