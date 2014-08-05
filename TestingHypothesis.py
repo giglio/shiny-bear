@@ -49,7 +49,7 @@ def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, s
         return 'Coins are not equal'
 
 
-def example_compare_two_means(list_of_values_1, list_of_values_2, significance_level=0.95):
+def compare_two_means(list_of_values_1, list_of_values_2, significance_level=0.95):
     """ Two-sided test for the null hypothesis that 2 means are equal """
 
     # If equal_var=True: assumes equal population variances.

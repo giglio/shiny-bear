@@ -29,7 +29,8 @@ def flip_some_coins_lots_of_times(number_of_times, number_of_flips=1000, fairnes
     """ Flips some coins lots of times """
 
     results = binomial(number_of_flips, fairness, number_of_times)
-    if plot: hist(results, 1000); show()
+    if plot:
+        hist(results, 1000); show()
     return results
 
 

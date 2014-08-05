@@ -15,14 +15,22 @@ from FlippingCoins import flip_some_coins_lots_of_times
 def example_test_a_mean(a_list_of_values, target=0.5, significance_level=0.95):
     """ The math behind testing a single mean """
 
-    sample_size = len(a_list_of_values)
-    sample_standard_deviation = std(a_list_of_values)
-    sample_mean = mean(a_list_of_values)
+    # sample size
+    n = len(a_list_of_values)
+    # sample standard deviation
+    sigma = std(a_list_of_values)
+    # sample mean
+    mu = mean(a_list_of_values)
 
-    standard_error = sample_standard_deviation/sqrt(sample_size)
-    t_statistic = (sample_mean-target)/standard_error
-    degrees_of_freedom = sample_size-1
-    prob = stats.t.sf(t_statistic, degrees_of_freedom)
+    # standard error
+    se = sigma/sqrt(n)
+    # t-statistic
+    t = (mu-target)/se
+    # degrees of freedom
+    df = n-1
+
+    # check in statistical table
+    prob = stats.t.sf(t, df)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
     # then we cannot reject the null hypothesis of identical averages
@@ -36,20 +44,28 @@ def example_test_a_mean(a_list_of_values, target=0.5, significance_level=0.95):
 def example_compare_two_means(list_of_values_1, list_of_values_2, significance_level=0.95):
     """ The math behind comparing two means """
 
-    sample_size_1 = len(list_of_values_1)
-    sample_standard_deviation_1 = std(list_of_values_1)
-    sample_mean_1 = mean(list_of_values_1)
-    s12 = sample_standard_deviation_1**2
+    # sample size
+    n1 = len(list_of_values_1)
+    n2 = len(list_of_values_2)
+    # sample standard deviation
+    sigma1 = std(list_of_values_1)
+    sigma2 = std(list_of_values_2)
+    # sample mean
+    mu1 = mean(list_of_values_1)
+    mu2 = mean(list_of_values_2)
+    # sample variance
+    s12 = sigma1**2
+    s22 = sigma2**2
 
-    sample_size_2 = len(list_of_values_2)
-    sample_standard_deviation_2 = std(list_of_values_2)
-    sample_mean_2 = mean(list_of_values_2)
-    s22 = sample_standard_deviation_2**2
+    # standard error
+    se = sqrt((s12/n1)+(s22/n2))
+    # t-statistic
+    t = (mu1-mu2)/se
+    # degrees of freedom
+    df = round(min(n1, n2)-1)
 
-    standard_error = sqrt((s12/sample_size_1)+(s22/sample_size_2))
-    t_statistic = (sample_mean_1-sample_mean_2)/standard_error
-    degrees_of_freedom = round(min(sample_size_1, sample_size_2)-1)
-    prob = stats.t.sf(abs(t_statistic), degrees_of_freedom)*2
+    # check in statistical table
+    prob = stats.t.sf(abs(t), df)*2
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
     # then we cannot reject the null hypothesis of identical averages
@@ -68,7 +84,7 @@ def example_test_a_proportion(p=0.1, n=100, target=0.1, significance_level=0.95)
     prob = stats.zprob(z_score)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
-    # then we cannot reject the null hypothesis of identical averages
+    # then we cannot reject the null hypothesis of identical proportions
     alpha = 1 - significance_level
     if prob > alpha:
         return 'Proportion is equal to target'
@@ -85,7 +101,7 @@ def example_compare_two_proportions(p1=0.1, n1=100, p2=0.1, n2=100, significance
     prob = stats.zprob(z_score)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
-    # then we cannot reject the null hypothesis of identical averages
+    # then we cannot reject the null hypothesis of identical proportions
     alpha = 1 - significance_level
     if prob > alpha:
         return 'Proportions are equal'

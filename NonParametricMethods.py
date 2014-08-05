@@ -14,7 +14,7 @@ from matplotlib.pyplot import hist, show
 from FlippingCoins import flip_some_coins_lots_of_times
 from ConfidenceIntervals import get_confidence_intervals_using_the_normal_distribution, \
                                 get_confidence_intervals_using_the_quantiles
-from TestingHypothesis import example_compare_two_means
+from TestingHypothesis import compare_two_means
 
 
 def create_random_non_normal_data(sample_size=1000, a=11.3, c=0.4, plot=False):
@@ -41,7 +41,7 @@ def test_for_normality(a_list_of_values, significance_level=0.95):
         return 'Data is not normal'
 
 
-def bootstrap_confidence_intervals(a_list_of_values):
+def bootstrap_confidence_intervals(a_list_of_values, bootstrapping_resamples=1000):
     """ Bootstrapping confidence intervals """
 
     def sample_wr(population, k):
@@ -55,9 +55,18 @@ def bootstrap_confidence_intervals(a_list_of_values):
         return result
 
     # Bootstrapping
-    data = sample_wr(a_list_of_values, len(a_list_of_values))
-    lower_bound, upper_bound = get_confidence_intervals_using_the_quantiles(data)
-    return lower_bound, upper_bound
+    lower_bounds, upper_bounds = [], []
+    for _ in range(bootstrapping_resamples):
+        # create resample with the same size as the original
+        resample = sample_wr(a_list_of_values, len(a_list_of_values))
+        # get confidence interval
+        resample_lower_bound, resample_upper_bound = get_confidence_intervals_using_the_quantiles(resample)
+        # append to results
+        lower_bounds.append(resample_lower_bound)
+        upper_bounds.append(resample_upper_bound)
+
+    mean_lower_bound, mean_upper_bound = mean(lower_bounds), mean(upper_bounds)
+    return mean_lower_bound, mean_upper_bound
 
 
 def non_parametric_test_for_difference_of_means(list_of_values_1, list_of_values_2,
@@ -72,16 +81,16 @@ def non_parametric_test_for_difference_of_means(list_of_values_1, list_of_values
     # then we cannot reject the null hypothesis of identical averages
     alpha = 1 - significance_level
     if prob > alpha:
-        return 'The means are equal'
+        return 'Means are equal'
     else:
-        return 'The means are not equal'
+        return 'Means are not equal'
 
 
 def main():
     """ NonParametricMethods.py """
 
     print '---------- Normal data ---------------'
-    normal_data = flip_some_coins_lots_of_times_and(10000, number_of_flips=1000, fairness=0.5, plot=True)
+    normal_data = flip_some_coins_lots_of_times(100, number_of_flips=1000, fairness=0.5, plot=True)
     normal_lower_bound, normal_upper_bound = get_confidence_intervals_using_the_normal_distribution(
                                                                                         normal_data)
     print 'normal: len', len(normal_data), 'mean', mean(normal_data)
@@ -92,7 +101,7 @@ def main():
     print
 
     print '---------- Powerlaw data -------------'
-    powerlaw_data = create_random_non_normal_data(sample_size=10000, plot=True)
+    powerlaw_data = create_random_non_normal_data(sample_size=100, plot=True)
     print 'powerlaw: len', len(powerlaw_data), 'mean', mean(powerlaw_data)
     powerlaw_lower_bound, powerlaw_upper_bound = get_confidence_intervals_using_the_normal_distribution(
                                                                                         powerlaw_data)
@@ -105,26 +114,26 @@ def main():
     print '---------- Two equal normal means -----------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
-    print 'Normality based test to compare two equal normal means:', example_compare_two_means(
-                                                                                        data_2, data_1)
+    print 'Normality based test to compare two equal normal means:', compare_two_means(
+                                                                                    data_2, data_1)
     print 'Ranksum test to compare two equal normal means:', non_parametric_test_for_difference_of_means(
-                                                                                        data_2, data_1)
+                                                                                    data_2, data_1)
     print
     print '---------- Two unequal normal means ---------------'
     data_1 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.5)
     data_2 = flip_some_coins_lots_of_times(10000, number_of_flips=1000, fairness=0.45)
-    print 'Normality based test to compare two unequal normal means:', example_compare_two_means(
-                                                                                        data_2, data_1)
+    print 'Normality based test to compare two unequal normal means:', compare_two_means(
+                                                                                    data_2, data_1)
     print 'Ranksum test to compare two unequal normal means:', non_parametric_test_for_difference_of_means(
-                                                                                        data_2, data_1)
+                                                                                    data_2, data_1)
     print
     print '---------- Two equal non-normal means -------------'
-    data_1 = create_random_non_normal_data(sample_size=10000)
-    data_2 = create_random_non_normal_data(sample_size=10000)
-    print 'Normality based test to compare two equal non-normal means:', example_compare_two_means(
-                                                                                        data_2, data_1)
+    data_1 = create_random_non_normal_data(sample_size=1000)
+    data_2 = create_random_non_normal_data(sample_size=1000)
+    print 'Normality based test to compare two equal non-normal means:', compare_two_means(
+                                                                                    data_2, data_1)
     print 'Ranksum test to compare two equal non-normal means:', non_parametric_test_for_difference_of_means(
-                                                                                        data_2, data_1)
+                                                                                    data_2, data_1)
 
 
 if __name__ == '__main__':
