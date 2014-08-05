@@ -43,7 +43,7 @@ def simulate_bandit(number_of_requests=1000):
         }
     }
 
-    # After the simulation we'll plot the proportions of requests
+    # ppAfter the simulation we'll plot the proportions of requests
     # received by each alternative during time
     proportions_in_time = []
 

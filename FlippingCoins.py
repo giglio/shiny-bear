@@ -36,6 +36,7 @@ def flip_some_coins_lots_of_times_and_plot(number_of_times, number_of_flips=1000
 
     results = flip_some_coins_lots_of_times(number_of_times, number_of_flips, fairness)
     hist(results, 1000); show()
+    return results
 
 
 def main():

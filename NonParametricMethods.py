@@ -15,7 +15,7 @@ from FlippingCoins import flip_some_coins_lots_of_times, \
                           flip_some_coins_lots_of_times_and_plot
 from ConfidenceIntervals import get_confidence_intervals_using_the_normal_distribution, \
                                 get_confidence_intervals_using_the_quantiles
-from TestingHypothesisWithMeans import example_compare_two_means
+from TestingHypothesis import example_compare_two_means
 
 
 def create_random_non_normal_data(sample_size=1000, a=11.3, c=0.4, plot=False):
@@ -30,7 +30,7 @@ def test_for_normality(a_list_of_values, significance_level=0.95):
     """ Normality test """
 
     # Tests the null hypothesis that a sample comes from a normal distribution.
-    # It is based on D’Agostino and Pearson’s test
+    # It is based on D'Agostino and Pearson's test
     chi2_statistic, prob = stats.normaltest(a_list_of_values)
 
     # If we observe a large p-value, for example larger than 0.05 or 0.1,
@@ -63,7 +63,7 @@ def bootstrap_confidence_intervals(a_list_of_values):
 
 def non_parametric_test_for_difference_of_means(list_of_values_1, list_of_values_2,
                                                     significance_level=0.95):
-    """ Mann–Whitney U (non parametric) test for the difference of proportions """
+    """ Mann-Whitney U (non parametric) test for the difference of proportions """
 
     # Mann-Whitney U test (also called the Mann-Whitney-Wilcoxon (MWW),
     # Wilcoxon rank-sum test, or Wilcoxon-Mann-Whitney test

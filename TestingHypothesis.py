@@ -49,6 +49,22 @@ def example_compare_two_coins(number_of_flips, fairness_1=0.5, fairness_2=0.5, s
         return 'Coins are not equal'
 
 
+def example_compare_two_means(list_of_values_1, list_of_values_2, significance_level=0.95):
+    """ Two-sided test for the null hypothesis that 2 means are equal """
+
+    # If equal_var=True: assumes equal population variances.
+    # If equal_var=False, perform Welch t-test
+    t_statistic, prob = stats.ttest_ind(list_of_values_1, list_of_values_2, equal_var=False)
+
+    # If we observe a large p-value, for example larger than 0.05 or 0.1,
+    # then we cannot reject the null hypothesis of identical averages
+    alpha = 1 - significance_level
+    if prob > alpha:
+        return 'Means are equal'
+    else:
+        return 'Means are not equal'
+
+
 def example_test_single_proportion(number_of_flips, fairness=0.5, significance_level=0.95):
     """ Two-sided test for the null hypothesis that a proportion is equal to 0.5 """
 
