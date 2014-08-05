@@ -27,6 +27,7 @@ def flip_a_fair_coin():
 def guess_a_baby():
     """ Guess whether it's a boy or a girl """
 
+    # Then we can model whatever we want
     random_number_from_uniform = random()
 
     if random_number_from_uniform < 0.5:
@@ -41,6 +42,7 @@ def example_flip_a_coin(fairness=0.5):
     if fairness < 0 or fairness > 1:
         return 'fairness must be inside [0, 1]'
 
+    # Including unfair coins
     random_number_from_uniform = random()
 
     if random_number_from_uniform < fairness:

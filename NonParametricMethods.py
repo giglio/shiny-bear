@@ -11,8 +11,7 @@ from numpy import mean
 from scipy import stats
 from matplotlib.pyplot import hist, show
 
-from FlippingCoins import flip_some_coins_lots_of_times, \
-                          flip_some_coins_lots_of_times_and_plot
+from FlippingCoins import flip_some_coins_lots_of_times
 from ConfidenceIntervals import get_confidence_intervals_using_the_normal_distribution, \
                                 get_confidence_intervals_using_the_quantiles
 from TestingHypothesis import example_compare_two_means
@@ -82,7 +81,7 @@ def main():
     """ NonParametricMethods.py """
 
     print '---------- Normal data ---------------'
-    normal_data = flip_some_coins_lots_of_times_and_plot(10000, number_of_flips=1000, fairness=0.5)
+    normal_data = flip_some_coins_lots_of_times_and(10000, number_of_flips=1000, fairness=0.5, plot=True)
     normal_lower_bound, normal_upper_bound = get_confidence_intervals_using_the_normal_distribution(
                                                                                         normal_data)
     print 'normal: len', len(normal_data), 'mean', mean(normal_data)
